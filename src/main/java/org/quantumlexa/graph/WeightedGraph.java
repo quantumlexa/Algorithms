@@ -1,25 +1,30 @@
 package org.quantumlexa.graph;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class WeightedGraph {
 
-    private Set<Edge>[] graph;
+    private List<Edge>[] graph;
     private final int vertexes;
 
     public WeightedGraph(int vertexes) {
         this.vertexes = vertexes;
-        this.graph = new Set[vertexes];
+        this.graph = new List[vertexes];
         for (int i = 0; i < vertexes; i++) {
-            this.graph[i] = new HashSet<>();
+            this.graph[i] = new ArrayList<>();
         }
     }
 
     public Collection<Edge> getAdj(int w) {
         checkBoundaries(w);
         return graph[w];
+    }
+
+
+    public void addEdge(Edge edge) {
+        checkBoundaries(edge.from);
+        checkBoundaries(edge.to);
+        this.graph[edge.from].add(edge);
     }
 
     public void addEdge(int from, int to, double weight) {
